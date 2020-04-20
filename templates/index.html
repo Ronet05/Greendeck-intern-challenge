@@ -1,0 +1,40 @@
+<html>
+<head>
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+  <!-- jQuery library -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+  <!-- Latest compiled JavaScript -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+<div class="container">
+    <form method = "POST" action="/dashboard/filterdata" enctype="multipart/form-data">
+        <div class="form-group">
+            <div class="row">
+                <div class="col-sm-6">
+                    <h4>Select the queries</h4>
+                    <input type="checkbox" value="discounted_products_list" name="disc_list"> Discounted Products List<br>
+                    <input type="checkbox" value="discounted_products_count" name="disc_count"> Discounted Products Count<br>
+                    <input type="checkbox" value="avg_discount" name="avg_discount"> Average Discount<br>
+                    <input type="checkbox" value="exepensive_list" name="exp_list"> List of Items priced higher than comp<br>
+                </div>
+                <div class="col-sm-6">
+                    <h4>Select the filters</h4>
+                    <input type="checkbox" value="competition" name="competition"> by competition (website ids)<br>
+                    <input type="checkbox" value="discount_diff" name="disc_diff"> by percentage difference in discount<br>
+                    <input type="checkbox" value="brand.name" name="brand"> by brand name<br>
+                    <input type="checkbox" value="discount" name="disc"> by raw discount value<br>
+                </div>
+
+            </div>
+        </div>
+        <button type="submit" class="btn btn-default">Process Data</button>
+    </form>
+</div>
+</body>
+
+s</html>
