@@ -4,7 +4,7 @@ import json
 import csv
 
 
-class QueryProcessing:
+class FilterProcessing:
 
     def __int__(self, operand1, operand2, operator):
         op1 = operand1

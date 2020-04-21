@@ -3,40 +3,30 @@ import numpy as np
 import csv
 
 
-class process_data:
+class QueryProcessing:
+    '''def competition_discount_diff_list(self, subset):
 
-    def discount_plist(self, filters):
-        '''here, op1 can be 'discount','brand.name' and 'competition'.
-        op which is the operator can be '>','<','=='.
-        op2 depends on op1 whether it is a string or a float '''
+    def expensive_list(self, subset):
 
-        op1 = filters[0]
-        op = filters[1]
-        op2 = filters[2]
+    def discounted_product_list(self, subset):'''
 
-        # force the user to input int in form against discount in html
+    # should work without filter as well, therefore generalize it for entire dataset
+    def avg_discount(self, subset):
+        sum_discounts = 0
+        for p in subset:
+            offer_price = p['price']['offer_price']['value']
+            regular_price = p['price']['regular_price']['value']
+            discount = (offer_price - regular_price) * 100 / regular_price
+            sum_discounts += discount
+        avg_discount = sum_discounts / len(subset)
+        return avg_discount
+
+    # should work without filter as well, therefore generalize it for entire dataset
+    def discounted_product_count(self, subset):
         ids = []
-        if (op1 == 'discount'):
-            d_perc = op2
-            for p in product_json:
-                reg_price = p['price']['regular_price']['value']
-                off_price = p['price']['offer_price']['value']
-                disc = (reg_price - off_price) * 100 / reg_price
-                if (op == "==" and disc == op2):
-                    ids.append(p['_id']['$oid'])
-                elif (op == ">" and disc > op2):
-                    ids.append(p['_id']['$oid'])
-                elif (op == "<" and disc < op2):
-                    ids.append(p['_id']['$oid'])
-
-        # force the user to input str in form against brand.name in html
-        elif (op1 == "brand.name"):
-            for p in product_json:
-                brand_name = p['brand']['name']
-                if (brand_name == op2):
-                    reg_price = p['price']['regular_price']['value']
-                    off_price = p['price']['offer_price']['value']
-                    if (off_price - reg_price < 0):
-                        ids.append(p['_id']['$oid'])
-
-        return ids
+        for p in subset:
+            # next statement because general condition for discount. if filter already exists, then this condition is
+            # already true. Filter gives an additional parameter of discount percentage or brandname etc.
+            if p['price']['offer_price'] < p['price']['regular_price']:
+                ids.append(p['_id']['$oid'])
+        return len(ids)
