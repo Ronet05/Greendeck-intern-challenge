@@ -1,9 +1,10 @@
 # Greendeck-intern-challenge
-The project was <br>
+Project uses Flask and Python to build the backend. Postman used for testing POST requests. App is hosted on
+ Heroku.<br>
 
-##Function Descriptions
+<h2>Function Descriptions</h2>
 
-####QueryProcessing Class
+<h3>QueryProcessing Class</h3>
 <ul>
 
 <li>
@@ -58,7 +59,7 @@ This function depends on 2 filters (competition and discount_diff) that need to 
 </ul>
 
 
-####FilterProcessing Class
+<h3>FilterProcessing Class</h3>
 The functions in this class require the <b>operands</b> and the <b>operator</b> that is passed along
 with the POST request.
 <ul>
@@ -109,7 +110,7 @@ returns
 
 </ul>
 
-####API processing
+<h3>API processing</h3>
   
   
  First filter the data to obtain a subset of the data<br>
