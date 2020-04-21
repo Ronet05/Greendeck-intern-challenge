@@ -15,7 +15,7 @@ class FilterProcessing:
         result = []
         for p in subset_from_competition:
             basket_price_NAP = p['price']['basket_price']['value']
-            basket_price_comp = ['similar_products']['website_results'][competing_id]['meta']['avg_price']['basket']
+            basket_price_comp = p['similar_products']['website_results'][competing_id]['meta']['avg_price']['basket']
             disc = (basket_price_NAP - basket_price_comp) * 100 / basket_price_NAP
             if op == "==" and disc == op2:
                 result.append(p)

@@ -4,11 +4,34 @@ import csv
 
 
 class QueryProcessing:
-    '''def competition_discount_diff_list(self, subset):
+    '''def competition_discount_diff_list(self, subset, filters):'''
 
     def expensive_list(self, subset):
+        ids = []
+        for p in subset:
+            flag = 0
+            for comp in p['similar_products']['website_results']:
+                if p['similar_products']['website_results'][comp]['meta']['total_results'] != 0:
 
-    def discounted_product_list(self, subset):'''
+                    # pick minimum price because then there is atleast 1 listing that is at minimum cost on that website
+                    comp_price = p['similar_products']['website_results'][comp]['meta']['min_price']['basket']
+                    nap_price = p['price']['basket_price']['value']
+                    if (nap_price - comp_price) > 0:
+                        flag = 1
+                        break
+            if flag == 1:
+                ids.append(p['_id']['$oid'])
+
+        return ids
+
+    def discounted_product_list(self, subset):
+        ids = []
+        for p in subset:
+            # next statement because general condition for discount. if filter already exists, then this condition is
+            # already true. Filter gives an additional parameter of discount percentage or brandname etc.
+            if p['price']['offer_price'] < p['price']['regular_price']:
+                ids.append(p['_id']['$oid'])
+        return ids
 
     # should work without filter as well, therefore generalize it for entire dataset
     def avg_discount(self, subset):
