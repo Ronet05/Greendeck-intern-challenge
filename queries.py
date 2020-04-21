@@ -4,7 +4,27 @@ import csv
 
 
 class QueryProcessing:
-    '''def competition_discount_diff_list(self, subset, filters):'''
+
+    # this function cannot be generalized for the entire dataset, because it needs the amount of difference to be
+    # specified which comes from the filters.
+
+    def competition_discount_diff_list(self, subset, filters):
+        ids = []
+        flag_d = 0
+        flag_c = 0
+        for f in filters:
+            op1 = f['operand1']
+            if op1 == "competition":
+                flag_c += 1
+            elif op1 == "discount_diff":
+                flag_d += 1
+        if not (flag_d > 1 and flag_c > 1):
+            return "Not Selected Competition or Discount Difference amount"
+
+        for p in subset:
+            ids.append(p['_id']['$oid'])
+
+        return ids
 
     def expensive_list(self, subset):
         ids = []
@@ -24,6 +44,7 @@ class QueryProcessing:
 
         return ids
 
+    # should work without filter as well, therefore generalize it for entire dataset
     def discounted_product_list(self, subset):
         ids = []
         for p in subset:
