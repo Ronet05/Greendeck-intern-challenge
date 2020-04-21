@@ -2,6 +2,7 @@ import json
 import numpy as np
 import csv
 
+
 class process_data:
 
     def discount_plist(self, filters):
