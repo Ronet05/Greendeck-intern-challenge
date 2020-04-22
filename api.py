@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request, url_for, json, jsonify
+import data_processing
 import flask
 import requests
 import csv
@@ -6,17 +7,30 @@ import csv
 app = Flask(__name__)
 app.config['DEBUG'] = True
 
-@app.route('/', methods=['POST'])
+
+def prepare_dataset():
+    product_json = []
+    with open('json/netaporter_gb_similar.json', encoding='utf-8') as fp:
+        for product in fp.readlines():
+            product_json.append(json.loads(product))
+    return product_json
+
+
+@app.route('/')
 def home():
-    return render_template("index.html")
+    dataset = prepare_dataset()
+    return jsonify(dataset[:5])
+
+
+@app.route('/v1/api/test', methods=['POST'])
+def process_query():
+    post_request = request.get_json(force=True)
+    dataset = prepare_dataset()
+    response = data_processing.request_processing(dataset, post_request)
+    return response
 
 
 # Contains all the data
-product_json = []
-
-with open('netaporter_gb_similar.json', encoding='utf-8') as fp:
-    for product in fp.readlines():
-        product_json.append(json.loads(product))
 
 
 @app.route('/api/v1/resources/products/all', methods=['GET'])
