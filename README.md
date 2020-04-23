@@ -1,6 +1,6 @@
-# Greendeck-intern-challenge
+# Greendeck Data Sciecne Intern Challenge
 Project uses Flask and Python to build the backend. Postman was used for testing POST requests. App is hosted on
- Heroku. The url for the Heroku server is: "https://enigmatic-mountain-99944.herokuapp.com/" <br>
+ Heroku. The url for the Heroku server is: https://enigmatic-mountain-99944.herokuapp.com/ <br>
  <b>NOTE: </b> Since there is no front end to the application, the user will get a Method Not Allowed response. Kindly use Postman 
  to check for responses to POST requests. 
 <br><br>
@@ -56,6 +56,9 @@ parameters:<br>
     <li>subset - json data as a list</li>   
 </ul>
 >> returns a <b>list</b> of NAP products whose basket price is higher than any of the competing websites.
+<b>NOTE: </b>The basket price of the competitor is taken form the 'min_price' section. This is because it is only logical
+that a customer will buy the product with the minimum price first. Therefore, when comparing the 2 websites, the product
+will compare minimum prices available. 
 </li>
 
 <li>
@@ -145,3 +148,27 @@ to be used before sending the data into the prepare_dataset method for further p
 
 <h3>Demo Request and Response and Steps to run on Heroku or localhost</h3>
 <h4>Steps to run on localhost</h4>
+<ol>
+<li>Make sure you have installed flask, flask_cors, gdown and zipfile along with python3 to get everything running.</li>
+<li>Depending upon the type of test file you want to test on, either download the data or use the demo data(which is the default data used). Check the 
+api.py file and uncomment the both or the init_files() function call displayed by the arrow.</li>
+<li>In a terminal, type <code>python api.py</code></li>
+<li>Should open the app on the default location <code>localhost:5000</code>. Still, check the terminal to see where the app os hosted. Go to that url.</li>
+<li>Open Postman. Open a new tab in it. Change request type to <b>POST</b>. By default it is at <b>GET</b>.
+Type the app URL in the bar beside the request type.
+</li>
+<li>
+Select <b>Body</b> from the menu bar below and then select <b>raw</b> from the menu bar above the blank space.</li>
+<li>Type request in this format: <br>
+<code>{ "query_type": "discounted_products_list|avg_discount|discounted_product_count", 
+  "filters": [{ "operand1": "discount", "operator": ">", "operand2": 30 }] } </code></li>
+<li>Check the output in the response space below.</li>
+</ol>
+
+<h4>Steps to run on Heroku</h4>
+As mentioned earlier, the URL is : https://enigmatic-mountain-99944.herokuapp.com/
+<ol>
+<li>Since the server is already running , there is no need to go the url.</li>
+<li>Simply copy the URL and paste the URL bar as was done for localhost in the earlier steps.</li>
+<li>Give the request in the same way, and get the output.</li>
+</ol>

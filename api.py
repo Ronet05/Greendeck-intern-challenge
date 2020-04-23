@@ -25,6 +25,7 @@ app = flask.Flask(__name__)
 app.config['DEBUG'] = True
 CORS(app)
 
+
 # the following function will download and store the file in the dumps file. If you want to download the raw json,
 # change the extension of file to .json in the dump_path
 def init_files(dump_path='dumps/netaporter_gb.zip'):
@@ -52,10 +53,17 @@ def prepare_dataset(path):
     return product_json
 
 
-'''please uncomment the below 2 lines if you want encorporate downloading and extracting zip files, or simply 
-downloading the raw json data and storing  it '''
+#    ||||
+#    ||||
+#    ||||
+#   \||||/
+#    \\//
+#     \/
+
+'''please uncomment the below 2 lines if you want encorporate downloading and extracting zip files, or just the first 
+to download the raw json data and storing  it '''
 # init_files('dumps/netaporter_gb.zip')
-#extract_zip('dumps/netaporter_gb.zip')
+# extract_zip('dumps/netaporter_gb.zip')
 dataset = prepare_dataset('dumps/netaporter_gb_similar.json')
 
 

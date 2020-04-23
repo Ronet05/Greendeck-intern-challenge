@@ -11,9 +11,9 @@ class QueryProcessing:
                 for comp in p['similar_products']['website_results']:
                     if p['similar_products']['website_results'][comp]['meta']['total_results'] != 0:
 
-                        # pick minimum price because then there is atleast 1 listing that is at minimum cost on that website
-                        # so a customer will definitely would want to purchase the cheapest option, so that can become the
-                        # comparison point
+                        # pick minimum price because then there is atleast 1 listing that is at minimum cost on that
+                        # website so a customer will definitely would want to purchase the cheapest option,
+                        # so that can become the comparison point
 
                         comp_price = p['similar_products']['website_results'][comp]['meta']['min_price']['basket']
                         nap_price = p['price']['basket_price']['value']
