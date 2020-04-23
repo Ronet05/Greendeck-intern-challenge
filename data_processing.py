@@ -1,5 +1,5 @@
-import queries as qr
-import filters as fl
+from queries import QueryProcessing
+from filters import FilterProcessing
 
 
 def request_processing(product_json, request):
@@ -19,6 +19,11 @@ def request_processing(product_json, request):
     # first apply the filters
     subset = product_json
     comp_id = None
+
+    # create 2 objects, for filter and query processing
+    qr = QueryProcessing()
+    fl = FilterProcessing()
+
     for i in filters:
         op1 = i['operand1']
         op2 = i['operand2']
