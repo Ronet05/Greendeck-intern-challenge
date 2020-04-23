@@ -1,5 +1,4 @@
 import json
-import numpy as np
 import csv
 
 
@@ -7,20 +6,21 @@ def expensive_list(subset):
     ids = []
     for p in subset:
         flag = 0
-        for comp in p['similar_products']['website_results']:
-            if p['similar_products']['website_results'][comp]['meta']['total_results'] != 0:
+        if 'similar_products' in p:
+            for comp in p['similar_products']['website_results']:
+                if p['similar_products']['website_results'][comp]['meta']['total_results'] != 0:
 
-                # pick minimum price because then there is atleast 1 listing that is at minimum cost on that website
-                # so a customer will definitely would want to purchase the cheapest option, so that can become the
-                # comparison point
+                    # pick minimum price because then there is atleast 1 listing that is at minimum cost on that website
+                    # so a customer will definitely would want to purchase the cheapest option, so that can become the
+                    # comparison point
 
-                comp_price = p['similar_products']['website_results'][comp]['meta']['min_price']['basket']
-                nap_price = p['price']['basket_price']['value']
-                if (nap_price - comp_price) > 0:
-                    flag = 1
-                    break
-        if flag == 1:
-            ids.append(p['_id']['$oid'])
+                    comp_price = p['similar_products']['website_results'][comp]['meta']['min_price']['basket']
+                    nap_price = p['price']['basket_price']['value']
+                    if (nap_price - comp_price) > 0:
+                        flag = 1
+                        break
+            if flag == 1:
+                ids.append(p['_id']['$oid'])
 
     return ids
 
@@ -62,7 +62,11 @@ def avg_discount(subset):
         regular_price = p['price']['regular_price']['value']
         discount = (regular_price - offer_price) * 100 / regular_price
         sum_discounts += discount
-    avg_discount = sum_discounts / len(subset)
+    try:
+        avg_discount = sum_discounts / len(subset)
+    except ZeroDivisionError:
+        return "Returned a null file. Average discount throws ZeroDivisionError!"
+
     return avg_discount
 
 
